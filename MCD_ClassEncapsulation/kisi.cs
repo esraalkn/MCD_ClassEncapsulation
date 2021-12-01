@@ -50,12 +50,56 @@ namespace MCD_ClassEncapsulation
                 if (_yas < 0)
                 {
                     _yas = 0;
-                    throw new FormatException("Yaş özelliği 0 'dan küçük olamaz")
+                    throw new FormatException("Yaş özelliği 0 'dan küçük olamaz");
                 }
             }
         }
        
         public DateTime dogumtarihi { get; set; }
+
+        private string _telefonNumarasi;
+        public string TelefonNumarasi
+        {
+            get
+            {
+                return _telefonNumarasi.Substring(0, 3) + " " + _telefonNumarasi.Substring(3,3) + " " + _telefonNumarasi.Substring(6,2) + " " + _telefonNumarasi.Substring(8, 2) ;
+
+                 
+               
+            }
+            set
+            {
+
+                char[] dizi = value.ToCharArray();
+                bool hepsiRakamMi = true;
+                foreach (char item in dizi)
+                {
+                    if (char.IsNumber(item)==false)
+                    {
+                        hepsiRakamMi = false;
+                        break;
+                    }
+                }
+                if (hepsiRakamMi == true)
+                {
+                    if (value.ToString().Length == 10)
+                    {
+                        _telefonNumarasi = value;
+                    }
+                    else
+                    {
+                        throw new FormatException("Telefon numarası 10 haneli olmalıdır. 5XXXXXXXXX");
+                    }
+                }
+                else
+                {
+                    throw new FormatException("Telefon numarası sadece rakamlardan oluşmalıdır.");
+                }
+                _telefonNumarasi = value;
+            }
+        }
+
+        public string DenemeTelNo { get; set; }
         
     }
 }
